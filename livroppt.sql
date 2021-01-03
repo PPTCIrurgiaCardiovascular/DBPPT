@@ -60,7 +60,8 @@ foreign key (Hospital) references hospitais(cod)
 
 create table hospitais(
 cod varchar (5),
-nome varchar (50)
+nome varchar (50),
+primary key (cod)
 );
 describe hospitais;
 insert into hospitais values
