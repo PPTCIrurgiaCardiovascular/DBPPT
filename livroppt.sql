@@ -1,5 +1,5 @@
-create database if not exists livroppt
-use livroppt
+create database if not exists livroppt;
+use livroppt;
 create table Proteses(
 id varchar (10),
 cod varchar (10),
