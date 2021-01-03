@@ -23,6 +23,13 @@ insert into Proteses values
 ('emem31','7300TFX31','Mitral','Edwards','Magna Ease','31'),
 ('emem33','7300TFX33','Mitral','Edwards','Magna Ease','33');
 
+create table enxertos(
+cod varchar (10),
+descricao text,
+primary key (cod)
+);
+describe enxertos;
+
 select * from Proteses;
 
 create table cirurgias(
@@ -33,7 +40,7 @@ DN date,
 DC date,
 CEC boolean,
 Convenio varchar(15),
-Hospital enum ('CHU','HDH','HIAE','HUL','HRHDS'),
+Hospital varchar (5),
 Oxigenador enum ('Braile','LivaNova','Maquet','Medtronic','Nipro'),
 Cardioplegia enum ('Braile','Custodiol','Del Nido','St Thomas'),
 Euroscore decimal (4,2),
@@ -46,7 +53,19 @@ Enxertos varchar (30),
 Cirurgiao enum ('Dr Renato Bastos Pope','Dr Alisson Parrilha Toschi','Dr Robinson Poffo','Dr Ademar Regueira Filho','Dr Marcos Bonin','Dr Mateus Bueno Bueno','Dr Cezar Suchard','Dr Victor Clementoni'),
 Desfecho enum ('Vivo','Obito'),
 primary key (id),
-foreign key (Proteses) references Proteses(id)
+foreign key (Proteses) references proteses(id),
+foreign key (Enxertos) references enxertos(cod),
+foreign key (Hospital) references hospitais(cod)
 );
-describe cirurgias;
-select * from proteses;
+
+create table hospitais(
+cod varchar (5),
+nome varchar (50)
+);
+describe hospitais;
+insert into hospitais values
+('CHU','Centro Hospitalar Unimed'),
+('HDH','Hospital e Maternidade Dona Helena'),
+('HUL','Hospital Unimed Litoral - Balneario Camboriu'),
+('HRHDS','Hospital Regional Hans Dieter Schmidt'),
+('HIAE','Hospital Israelita Albert Einstein');
