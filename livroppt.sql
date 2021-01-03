@@ -23,6 +23,9 @@ insert into Proteses values
 ('emem31','7300TFX31','Mitral','Edwards','Magna Ease','31'),
 ('emem33','7300TFX33','Mitral','Edwards','Magna Ease','33');
 
+alter table proteses
+modify column cod varchar (20);
+
 create table enxertos(
 cod varchar (10),
 descricao text,
@@ -114,3 +117,18 @@ foreign key (Hospital) references hospitais(cod),
 foreign key (Cirurgiao) references cirurgioes(cod),
 foreign key (Oxigenador) references oxigenador(cod)
 );
+
+insert into proteses values
+('atgt19','TFGT-19A','Aortica','Abbott','Trifecta GT','19'),
+('atgt21','TFGT-21A','Aortica','Abbott','Trifecta GT','21'),
+('atgt23','TFGT-23A','Aortica','Abbott','Trifecta GT','23'),
+('atgt25','TFGT-25A','Aortica','Abbott','Trifecta GT','25'),
+('atgt27','TFGT-27A','Aortica','Abbott','Trifecta GT','27'),
+('atgt29','TFGT-29A','Aortica','Abbott','Trifecta GT','29');
+insert into proteses values
+('aepm25','E100-25M-00','Mitral','Abbott','Epic','25'),
+('aepm27','E100-27M-00','Mitral','Abbott','Epic','27'),
+('aepm29','E100-29M-00','Mitral','Abbott','Epic','29'),
+('aepm31','E100-31M-00','Mitral','Abbott','Epic','31'),
+('aepm33','E100-33M-00','Mitral','Abbott','Epic','33');
+select * from proteses;
