@@ -124,8 +124,7 @@ insert into proteses values
 ('atgt23','TFGT-23A','Aortica','Abbott','Trifecta GT','23'),
 ('atgt25','TFGT-25A','Aortica','Abbott','Trifecta GT','25'),
 ('atgt27','TFGT-27A','Aortica','Abbott','Trifecta GT','27'),
-('atgt29','TFGT-29A','Aortica','Abbott','Trifecta GT','29');
-insert into proteses values
+('atgt29','TFGT-29A','Aortica','Abbott','Trifecta GT','29'),
 ('aepm25','E100-25M-00','Mitral','Abbott','Epic','25'),
 ('aepm27','E100-27M-00','Mitral','Abbott','Epic','27'),
 ('aepm29','E100-29M-00','Mitral','Abbott','Epic','29'),
