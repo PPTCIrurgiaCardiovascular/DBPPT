@@ -32,33 +32,22 @@ describe enxertos;
 
 select * from Proteses;
 
-create table cirurgias(
-id int not null auto_increment,
-nome varchar(50),
-gen enum('M','F'),
-DN date,
-DC date,
-CEC boolean,
-Convenio varchar(15),
-Hospital varchar (5),
-Oxigenador enum ('Braile','LivaNova','Maquet','Medtronic','Nipro'),
-Cardioplegia enum ('Braile','Custodiol','Del Nido','St Thomas'),
-Euroscore decimal (4,2),
-Carater enum ('El','Ur','Em'),
-CID_10 VARCHAR (5),
-Cirurgia text,
-Tipo enum ('MICS','Endovasc','Conv'),
-Proteses varchar (10),
-Enxertos varchar (30),
-Cirurgiao varchar (5),
-Desfecho enum ('Vivo','Obito'),
-primary key (id),
-foreign key (Proteses) references proteses(id),
-foreign key (Enxertos) references enxertos(cod),
-foreign key (Hospital) references hospitais(cod),
-foreign key (Cirurgiao) references cirurgioes(cod)
+create table oxigenador(
+cod varchar (10),
+fabricante varchar (10),
+modelo varchar (10),
+primary key (cod)
 );
+insert into oxigenador values
+('bra','Braile','Adulto'),
+('med','Medtronic','Affinity'),
+('liv','LivaNova','Inspire'),
+('maq','Maquet','Quadrox i'),
+('nib','Nipro','BioCube'),
+('nbr','Nipro','Brizio'),
+('niv','Nipro','Vital');
 
+select * from oxigenador;
 create table hospitais(
 cod varchar (5),
 nome varchar (50),
@@ -97,3 +86,31 @@ insert into cirurgioes values('RBP','Dr Renato Bastos Pope'),
 ('VC','Dr Victor Clementoni');
 select * from cirurgioes;
 select * from cirurgias;
+
+create table cirurgias(
+id int not null auto_increment,
+nome varchar(50),
+gen enum('M','F'),
+DN date,
+DC date,
+CEC boolean,
+Convenio varchar(15),
+Hospital varchar (5),
+Oxigenador varchar (10),
+Cardioplegia enum ('Braile','Custodiol','Del Nido','St Thomas'),
+Euroscore decimal (4,2),
+Carater enum ('El','Ur','Em'),
+CID_10 VARCHAR (5),
+Cirurgia text,
+Tipo enum ('MICS','Endovasc','Conv'),
+Proteses varchar (10),
+Enxertos varchar (30),
+Cirurgiao varchar (5),
+Desfecho enum ('Vivo','Obito'),
+primary key (id),
+foreign key (Proteses) references proteses(id),
+foreign key (Enxertos) references enxertos(cod),
+foreign key (Hospital) references hospitais(cod),
+foreign key (Cirurgiao) references cirurgioes(cod),
+foreign key (Oxigenador) references oxigenador(cod)
+);
