@@ -1,4 +1,6 @@
-create database if not exists livroppt;
+create database if not exists livroppt
+default character set utf8mb4
+default collate utf8mb4_general_ci;
 use livroppt;
 create table Proteses(
 id varchar (10),
@@ -47,3 +49,4 @@ primary key (id),
 foreign key (Proteses) references Proteses(id)
 );
 describe cirurgias;
+select * from proteses;
