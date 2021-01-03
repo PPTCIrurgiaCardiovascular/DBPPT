@@ -21,7 +21,18 @@ insert into Proteses values
 ('emem27','7300TFX27','Mitral','Edwards','Magna Ease','27'),
 ('emem29','7300TFX29','Mitral','Edwards','Magna Ease','29'),
 ('emem31','7300TFX31','Mitral','Edwards','Magna Ease','31'),
-('emem33','7300TFX33','Mitral','Edwards','Magna Ease','33');
+('emem33','7300TFX33','Mitral','Edwards','Magna Ease','33'),
+('atgt19','TFGT-19A','Aortica','Abbott','Trifecta GT','19'),
+('atgt21','TFGT-21A','Aortica','Abbott','Trifecta GT','21'),
+('atgt23','TFGT-23A','Aortica','Abbott','Trifecta GT','23'),
+('atgt25','TFGT-25A','Aortica','Abbott','Trifecta GT','25'),
+('atgt27','TFGT-27A','Aortica','Abbott','Trifecta GT','27'),
+('atgt29','TFGT-29A','Aortica','Abbott','Trifecta GT','29'),
+('aepm25','E100-25M-00','Mitral','Abbott','Epic','25'),
+('aepm27','E100-27M-00','Mitral','Abbott','Epic','27'),
+('aepm29','E100-29M-00','Mitral','Abbott','Epic','29'),
+('aepm31','E100-31M-00','Mitral','Abbott','Epic','31'),
+('aepm33','E100-33M-00','Mitral','Abbott','Epic','33');
 
 alter table proteses
 modify column cod varchar (20);
@@ -74,7 +85,12 @@ add foreign key (hospital)
 references hospitais(cod);
 describe cirurgias;
 select * from cirurgias;
-INSERT INTO cirurgias VALUES (DEFAULT, 'Renato Bastos Pope', 'M', '1975-12-06', '2020-06-15', '1', 'Unimed', 'CHU', 'Medtronic', 'Custodiol', '0.96', 'El', 'I35.0', 'TVAo', 'MICS', 'emea27', NULL, 'RP', 'Vivo');
+
+INSERT INTO cirurgias VALUES (DEFAULT, 'Fábio Bastos Pope', 'M', '1978-02-10', '2020-05-20', '1', 'Unimed', 'CHU', 'med', 'Custodiol', '0.96', 'El', 'I35.0', 'TVAo', 'MICS', 'atgt25', NULL, 'APT', 'Vivo');
+INSERT INTO cirurgias VALUES (DEFAULT, 'Renato Bastos Pope', 'M', '1975-12-06', '2020-06-15', '1','Unimed', 'CHU', 'med', 'Custodiol', '0.96', 'El', 'I35.0', 'TVAo', 'MICS', 'emea27', NULL, 'RP', 'Vivo'),
+(Default,'Leonardo Zozula Blind','M','1978-01-24','2020-07-18','0','SUS','HRHDS',NULL,NULL,'1.2','El','Q21.1','Fechamento de CIA','Endovasc',NULL,NULL,'RBP','Vivo');
+alter table cirurgias
+
 create table cirurgioes(
 cod varchar (5),
 nome varchar (50),
@@ -118,16 +134,5 @@ foreign key (Cirurgiao) references cirurgioes(cod),
 foreign key (Oxigenador) references oxigenador(cod)
 );
 
-insert into proteses values
-('atgt19','TFGT-19A','Aortica','Abbott','Trifecta GT','19'),
-('atgt21','TFGT-21A','Aortica','Abbott','Trifecta GT','21'),
-('atgt23','TFGT-23A','Aortica','Abbott','Trifecta GT','23'),
-('atgt25','TFGT-25A','Aortica','Abbott','Trifecta GT','25'),
-('atgt27','TFGT-27A','Aortica','Abbott','Trifecta GT','27'),
-('atgt29','TFGT-29A','Aortica','Abbott','Trifecta GT','29'),
-('aepm25','E100-25M-00','Mitral','Abbott','Epic','25'),
-('aepm27','E100-27M-00','Mitral','Abbott','Epic','27'),
-('aepm29','E100-29M-00','Mitral','Abbott','Epic','29'),
-('aepm31','E100-31M-00','Mitral','Abbott','Epic','31'),
-('aepm33','E100-33M-00','Mitral','Abbott','Epic','33');
 select * from proteses;
+select * from cirurgias;
