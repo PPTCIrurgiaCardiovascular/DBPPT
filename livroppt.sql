@@ -1,4 +1,6 @@
-create database if not exists livroppt;
+create database if not exists livroppt
+default character set utf8mb4
+default collate utf8mb4_general_ci;
 use livroppt;
 create table Proteses(
 id varchar (10),
@@ -21,6 +23,13 @@ insert into Proteses values
 ('emem31','7300TFX31','Mitral','Edwards','Magna Ease','31'),
 ('emem33','7300TFX33','Mitral','Edwards','Magna Ease','33');
 
+create table enxertos(
+cod varchar (10),
+descricao text,
+primary key (cod)
+);
+describe enxertos;
+
 select * from Proteses;
 
 create table cirurgias(
@@ -31,7 +40,7 @@ DN date,
 DC date,
 CEC boolean,
 Convenio varchar(15),
-Hospital enum ('CHU','HDH','HIAE','HUL','HRHDS'),
+Hospital varchar (5),
 Oxigenador enum ('Braile','LivaNova','Maquet','Medtronic','Nipro'),
 Cardioplegia enum ('Braile','Custodiol','Del Nido','St Thomas'),
 Euroscore decimal (4,2),
@@ -41,9 +50,50 @@ Cirurgia text,
 Tipo enum ('MICS','Endovasc','Conv'),
 Proteses varchar (10),
 Enxertos varchar (30),
-Cirurgiao enum ('Dr Renato Bastos Pope','Dr Alisson Parrilha Toschi','Dr Robinson Poffo','Dr Ademar Regueira Filho','Dr Marcos Bonin','Dr Mateus Bueno Bueno','Dr Cezar Suchard','Dr Victor Clementoni'),
+Cirurgiao varchar (5),
 Desfecho enum ('Vivo','Obito'),
 primary key (id),
-foreign key (Proteses) references Proteses(id)
+foreign key (Proteses) references proteses(id),
+foreign key (Enxertos) references enxertos(cod),
+foreign key (Hospital) references hospitais(cod),
+foreign key (Cirurgiao) references cirurgioes(cod)
 );
+
+create table hospitais(
+cod varchar (5),
+nome varchar (50),
+primary key (cod)
+);
+describe hospitais;
+insert into hospitais values
+('CHU','Centro Hospitalar Unimed'),
+('HDH','Hospital e Maternidade Dona Helena'),
+('HUL','Hospital Unimed Litoral - Balneario Camboriu'),
+('HRHDS','Hospital Regional Hans Dieter Schmidt'),
+('HIAE','Hospital Israelita Albert Einstein');
+select * from hospitais;
+alter table cirurgias
+modify column Cirurgiao varchar(5);
+alter table cirurgias
+add foreign key (Cirurgiao)
+references cirurgioes(cod);
+alter table cirurgias
+add foreign key (hospital)
+references hospitais(cod);
 describe cirurgias;
+select * from cirurgias;
+INSERT INTO cirurgias VALUES (DEFAULT, 'Renato Bastos Pope', 'M', '1975-12-06', '2020-06-15', '1', 'Unimed', 'CHU', 'Medtronic', 'Custodiol', '0.96', 'El', 'I35.0', 'TVAo', 'MICS', 'emea27', NULL, 'RP', 'Vivo');
+create table cirurgioes(
+cod varchar (5),
+nome varchar (50),
+primary key (cod)
+);
+insert into cirurgioes values('RBP','Dr Renato Bastos Pope'),
+('APT','Dr Alisson Parrilha Toschi'),
+('RP','Dr Robinson Poffo'),
+('ARF','Dr Ademar Regueira Filho'),
+('MB','Dr Marcos Bonin'),
+('MBB','Dr Mateus Bueno Bueno'),('CAS','Dr Cezar Suchard'),
+('VC','Dr Victor Clementoni');
+select * from cirurgioes;
+select * from cirurgias;
