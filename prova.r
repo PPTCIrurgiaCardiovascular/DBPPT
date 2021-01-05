@@ -87,11 +87,6 @@ fit=glm(data = lrn, STATUS~. ,family = binomial())
 summary(fit)
 fit2=step(fit, trace=0 ) #novo modelo
 summary(fit2)
-#Essa adição foi minha
-fib=glm(data = tst, STATUS~. ,family = binomial())
-summary(fib)
-fib2=step(fib, trace=0)
-summary(fib2)
 
 ################################################################
 #    previsao das probabilidades
