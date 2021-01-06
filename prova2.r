@@ -1,4 +1,5 @@
 db <- liv
+db2 <-liv
 install.packages("rpart")
 options(scipen=999)
 par(mfrow=c(2,2)) 
@@ -16,8 +17,7 @@ db$RESTR=ifelse(db$RESTR == "SIM",1,0)
 db$NAO_FICCAO=ifelse(db$NAO_FICCAO == "SIM",1,0)
 db$AUTO_AJUDA=ifelse(db$AUTO_AJUDA == "SIM",1,0)
 db$CATEG=ifelse(db$CATEG == "SIM",1,0)
-#Verificar os pressupostos
-#VD (o que eu quero prever) -> Status
+
 summary(db)
 summary(db$STATUS)
 
@@ -29,17 +29,16 @@ quantile(db$IDADE, probs = seq(0,1,.05))
 hist(db$IDADE, col = 18)
 boxplot(db$RESID~db$STATUS, main="Residencia", col=2);grid(col=4)
 table(db$UNIFED, useNA="ifany")
-db$estado = ifelse(liv$UNIFED !="SP", "NOSP", "SP")
-summary(db$estado)
+
 
 library(caret)
 
 set.seed(1234)
-flag=createDataPartition(db$STATUS, p=.6, list=F)
-lrn=db[flag,]; dim(lrn)
-tst=db[-flag,]; dim(tst)
+flag=createDataPartition(db$STATUS, p=1, list=F)
+tst=db[flag,]; dim(tst)
+
 summary(tst)
-fit=glm(data = lrn, STATUS~. ,family = binomial())
+fit=glm(data = tst, STATUS~. ,family = binomial())
 summary(fit)
 fit2=step(fit, trace=0 ) #novo modelo
 summary(fit2)
@@ -56,7 +55,7 @@ novo.p=predict(fit2, novo.indiv, type="response");novo.p
 kk=c(0.0, 0.1,   0.5,  0.8,  1)
 
 library(arules)
-classe=discretize(tst$pbom, method = "fixed", breaks = kk)
+classe=discretize(tst$pmau, method = "fixed", breaks = kk)
 
 m=table(classe, tst$STATUS, dnn = c("class","status"));m
 mm=prop.table(m,1);mm
@@ -78,14 +77,55 @@ plot(tatu, col=3);grid(col=2)
 pc=.4  #pmau>PC  ==> classificar como mau
 KLASS=ifelse(tst$pmau>pc, "recusa","aprova")
 table(KLASS, tst$STATUS, dnn=c("classificaccao", "realidade")) #matriz de classificaccao
-erro40=(121+73)/3000; erro40 
+erro40=(280+187)/3000; erro40 
 #reprovar o bom $500, aprovar o mau $800
-custo=73*500+121*800; custo
+custo=187*500+280*800; custo
 
-#Questão 2B1
-set.seed(1234)
+ #Questão 2B1
 novo.indiv2b1=data.frame(IDADE=30,UNIFED="RJ",RESID=0,FONE=1,INSTRU="SUP",CARTAO=1,RESTR=1, NAO_FICCAO=0,AUTO_AJUDA=1,CATEG=1)
 novo.p2b1=predict(fit2, novo.indiv2b1, type="response");novo.p2b1
 round(novo.p2b1,3)
+
+library(rpart)
+set.seed(1234)
+aclass=rpart(data = tst,STATUS~., method="class"); aclass
+
+#Questão 2B2
+
+library(rpart.plot)
+prp(aclass, type=5, extra=104, nn=T, fallen.leaves=T, branch.col="red", branch.lty=5, box.col=c("white","green"))
+aclass
+erro.estim=.2*.77833;erro.estim
+
+#Questão 2B3
+
+p=printcp(aclass)
+plot(aclass$cptable[ ,4], type="b", col=4, pch="+")
+lines(aclass$cptable[,3], type="b", pch=0, col=3)
+
+#Questão 2B4
+#2 nós, 1 split
+# número entre 0.048333e 0.0205000
+aclass2=prune(aclass, cp=0.03); aclass2
+p=printcp(aclass2)
+plot(aclass2$cptable[ ,4], type="b", col=4, pch="+")
+lines(aclass2$cptable[,3], type="b", pch=0, col=3)
+erro.estim=.2*.77833;erro.estim
+
+pred.aclass2=predict(aclass2, newdata=tst, type = "prob")
+head(pred.aclass2, 10)
+tst$pmau=pred.aclass2[,2]
+
+#Questão 2C1
+set.seed(1234)
+
+
+
+#Questão 2C2
+
+
+
+
+#Questão 2C3
 
 
